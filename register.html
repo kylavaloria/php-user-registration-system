@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+        .error { 
+            color: red; 
+        }
+        .success {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <form action="process_register.php" method="POST" enctype="multipart/form-data">
+        <label for="fullname">Fullname</label><br>
+        <input type="text" name="fullname" id="fullname"><br>
+        <span class="error" id="nameErr"></span><br>
+
+        <label for="email">Email</label><br>
+        <input type="email" name="email" id="email"><br>
+        <span class="error" id="emailErr"></span><br>
+
+        <label for="password">Password</label><br>
+        <input type="password" name="password" id="password"><br>
+        <span class="error" id="passwordErr"></span><br>
+
+        <label for="confirm-pass">Confirm Password</label><br>
+        <input type="password" name="confirm-pass" id="confirm-pass"><br>
+        <span class="error" id="confirmPassErr"></span><br>
+        
+        <label for="profile-pic">Profile Picture</label><br>
+        <input type="file" name="profile-pic" id="profile-pic"><br>
+        <span class="error" id="profilePicErr"></span><br>
+
+        <label for="gender">Gender</label>
+        <input type="radio" id="male" name="gender" value="male">
+        <label for="male">Male</label>
+        <input type="radio" id="female" name="gender" value="female">
+        <label for="female">Female</label>
+        <span class="error" id="genderErr"></span><br>
+
+        <input type="checkbox" name="toc" id="toc">
+        <label for="toc">Do you accept the terms and conditions</label><br>
+        <span class="error" id="tocErr"></span><br>
+        
+        <input type="submit" name="formSubmit">
+        <span class="error" id="formErr"></span>
+        <span class="success" id="successMsg"></span>
+    </form>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        
+        const errorFields = [
+            'nameErr',
+            'emailErr', 
+            'passwordErr',
+            'confirmPassErr',
+            'profilePicErr',
+            'genderErr',
+            'tocErr',
+            'formErr'
+        ];
+
+        errorFields.forEach(field => {
+            if (params.get(field)) {
+                document.getElementById(field).textContent = "* " + params.get(field);
+            }
+        });
+
+        if (params.get("successMsg")) {
+            document.getElementById("successMsg").textContent = params.get("successMsg");
+        }
+
+        const formFields = ['fullname', 'email'];
+        formFields.forEach(field => {
+            if (params.get(field)) {
+                document.getElementById(field).value = params.get(field);
+            }
+        });
+    </script>
+</body>
+</html>
