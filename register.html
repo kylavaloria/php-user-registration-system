@@ -5,51 +5,261 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration Form</title>
     <style>
-        .error { 
-            color: red; 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+        
+        body {
+            background-color: #f9fafb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 480px;
+            background-color: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        h1 {
+            margin-bottom: 30px;
+            font-weight: 600;
+            color: #111;
+            font-size: 24px;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #555;
+            font-weight: 500;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            font-size: 15px;
+            transition: border-color 0.2s;
+            background-color: #f9fafb;
+        }
+        
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .file-input {
+            position: relative;
+            width: 100%;
+        }
+        
+        .file-input label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 12px 16px;
+            background-color: #f9fafb;
+            border: 1px dashed #e5e7eb;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .file-input label:hover {
+            border-color: #3b82f6;
+            background-color: rgba(59, 130, 246, 0.05);
+        }
+        
+        .file-input input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+        
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            margin-top: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .radio-option input[type="radio"] {
+            cursor: pointer;
+            width: 16px;
+            height: 16px;
+            accent-color: #3b82f6;
+        }
+        
+        .radio-option label {
+            margin-bottom: 0;
+            cursor: pointer;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        
+        .checkbox-group input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: #3b82f6;
+            cursor: pointer;
+        }
+        
+        .checkbox-group label {
+            margin-bottom: 0;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .error {
+            display: block;
+            color: #dc2626;
+            font-size: 12px;
+            margin-top: 6px;
+            font-weight: 500;
+        }
+        
         .success {
-            color: green;
+            color: #059669;
+            font-size: 14px;
+            font-weight: 500;
+            text-align: center;
+            margin-top: 12px;
+        }
+        
+        button {
+            display: block;
+            width: 100%;
+            padding: 12px 20px;
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: 10px;
+        }
+        
+        button:hover {
+            background-color: #2563eb;
+        }
+        
+        .divider {
+            border-top: 1px solid #e5e7eb;
+            margin: 24px 0;
         }
     </style>
 </head>
 <body>
-    <form action="process_register.php" method="POST" enctype="multipart/form-data">
-        <label for="fullname">Fullname</label><br>
-        <input type="text" name="fullname" id="fullname"><br>
-        <span class="error" id="nameErr"></span><br>
-
-        <label for="email">Email</label><br>
-        <input type="email" name="email" id="email"><br>
-        <span class="error" id="emailErr"></span><br>
-
-        <label for="password">Password</label><br>
-        <input type="password" name="password" id="password"><br>
-        <span class="error" id="passwordErr"></span><br>
-
-        <label for="confirm-pass">Confirm Password</label><br>
-        <input type="password" name="confirm-pass" id="confirm-pass"><br>
-        <span class="error" id="confirmPassErr"></span><br>
+    <div class="container">
+        <h1>Create an Account</h1>
         
-        <label for="profile-pic">Profile Picture</label><br>
-        <input type="file" name="profile-pic" id="profile-pic"><br>
-        <span class="error" id="profilePicErr"></span><br>
+        <form action="process_register.php" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="fullname">Full Name</label>
+                <input type="text" name="fullname" id="fullname" placeholder="Enter your full name">
+                <span class="error" id="nameErr"></span>
+            </div>
 
-        <label for="gender">Gender</label>
-        <input type="radio" id="male" name="gender" value="male">
-        <label for="male">Male</label>
-        <input type="radio" id="female" name="gender" value="female">
-        <label for="female">Female</label>
-        <span class="error" id="genderErr"></span><br>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" name="email" id="email" placeholder="Enter your email">
+                <span class="error" id="emailErr"></span>
+            </div>
 
-        <input type="checkbox" name="toc" id="toc">
-        <label for="toc">Do you accept the terms and conditions</label><br>
-        <span class="error" id="tocErr"></span><br>
-        
-        <input type="submit" name="formSubmit">
-        <span class="error" id="formErr"></span>
-        <span class="success" id="successMsg"></span>
-    </form>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" placeholder="Create a password">
+                <span class="error" id="passwordErr"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="confirm-pass">Confirm Password</label>
+                <input type="password" name="confirm-pass" id="confirm-pass" placeholder="Confirm your password">
+                <span class="error" id="confirmPassErr"></span>
+            </div>
+            
+            <div class="form-group">
+                <label for="profile-pic">Profile Picture</label>
+                <div class="file-input">
+                    <label for="profile-pic">Choose a file</label>
+                    <input type="file" name="profile-pic" id="profile-pic">
+                </div>
+                <span class="error" id="profilePicErr"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Gender</label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" id="male" name="gender" value="male">
+                        <label for="male">Male</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="female" name="gender" value="female">
+                        <label for="female">Female</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="other" name="gender" value="other">
+                        <label for="other">Other</label>
+                    </div>
+                </div>
+                <span class="error" id="genderErr"></span>
+            </div>
+
+            <div class="checkbox-group">
+                <input type="checkbox" name="toc" id="toc">
+                <label for="toc">I accept the Terms and Conditions</label>
+            </div>
+            <span class="error" id="tocErr"></span><br>
+            
+            <button type="submit" name="formSubmit">Create Account</button>
+            <span class="error" id="formErr"></span>
+            <span class="success" id="successMsg"></span>
+        </form>
+    </div>
 
     <script>
         const params = new URLSearchParams(window.location.search);
@@ -67,7 +277,7 @@
 
         errorFields.forEach(field => {
             if (params.get(field)) {
-                document.getElementById(field).textContent = "* " + params.get(field);
+                document.getElementById(field).textContent = params.get(field);
             }
         });
 
@@ -79,6 +289,16 @@
         formFields.forEach(field => {
             if (params.get(field)) {
                 document.getElementById(field).value = params.get(field);
+            }
+        });
+        
+        // Show file name when selected
+        document.getElementById('profile-pic').addEventListener('change', function() {
+            const fileName = this.files[0]?.name;
+            if (fileName) {
+                this.previousElementSibling.textContent = fileName;
+            } else {
+                this.previousElementSibling.textContent = 'Choose a file';
             }
         });
     </script>
